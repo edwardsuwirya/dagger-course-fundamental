@@ -4,8 +4,9 @@ import android.util.Log
 import com.enigmacamp.myfulldagger.data.SharedPref
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class AuthTokenInterceptor(private val sharedPref: SharedPref) : Interceptor {
+class AuthTokenInterceptor @Inject constructor(private val sharedPref: SharedPref) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         Log.d("Interceptor", "intercept: ${originalRequest.url()}")

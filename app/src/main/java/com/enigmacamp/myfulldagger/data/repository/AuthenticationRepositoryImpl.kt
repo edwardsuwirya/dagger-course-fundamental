@@ -3,8 +3,9 @@ package com.enigmacamp.simplesharedpref.data.repository
 import com.enigmacamp.myfulldagger.data.SharedPref
 import com.enigmacamp.mysimpleupload.data.api.AuthApi
 import com.enigmacamp.simplesharedpref.data.api.request.AuthenticationRequest
+import javax.inject.Inject
 
-class AuthenticationRepositoryImpl(
+class AuthenticationRepositoryImpl @Inject constructor(
     private val authApi: AuthApi,
     private val sharedPref: SharedPref
 ) :

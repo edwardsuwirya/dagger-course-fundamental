@@ -9,8 +9,9 @@ import com.enigmacamp.simplesharedpref.data.api.request.AuthenticationRequest
 import com.enigmacamp.simplesharedpref.data.repository.AuthenticationRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainActivityViewModel(
+class MainActivityViewModel @Inject constructor(
     private val authenticationRepository: AuthenticationRepository,
     private val customerRepository: CustomerRepository
 ) : ViewModel() {
