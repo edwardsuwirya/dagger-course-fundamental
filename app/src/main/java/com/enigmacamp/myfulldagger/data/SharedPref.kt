@@ -9,7 +9,7 @@ class SharedPref(val sharedPref: SharedPreferences) {
         saveData.apply()
     }
 
-    fun retrived(KEY_NAME: String): String? {
+    fun retrieved(KEY_NAME: String): String? {
         return sharedPref.getString(KEY_NAME, null)
     }
 }

@@ -1,8 +1,8 @@
-package com.enigmacamp.simplesharedpref.data.repository
+package com.enigmacamp.myfulldagger.data.repository
 
 import com.enigmacamp.myfulldagger.data.SharedPref
-import com.enigmacamp.mysimpleupload.data.api.AuthApi
-import com.enigmacamp.simplesharedpref.data.api.request.AuthenticationRequest
+import com.enigmacamp.myfulldagger.data.api.AuthApi
+import com.enigmacamp.myfulldagger.data.api.request.AuthenticationRequest
 import javax.inject.Inject
 
 class AuthenticationRepositoryImpl @Inject constructor(
@@ -13,18 +13,22 @@ class AuthenticationRepositoryImpl @Inject constructor(
     override suspend fun login(authenticationRequest: AuthenticationRequest): Boolean {
         val response = authApi.login(authenticationRequest)
         if (response.isSuccessful) {
-            response.body()?.let {
+            val result = response.body().let {
 //                Log.d("Repo", "loginRes: ${it.token}")
-                sharedPref.save(TOKEN, it.token)
-                return true
+                if (it != null) {
+                    sharedPref.save(TOKEN, it.token)
+                    true
+                } else {
+                    false
+                }
             }
-            return false
+            return result
         }
         return false
     }
 
     override fun retrieveToken(): String? {
-        return sharedPref.retrived(TOKEN)
+        return sharedPref.retrieved(TOKEN)
     }
 
     companion object {

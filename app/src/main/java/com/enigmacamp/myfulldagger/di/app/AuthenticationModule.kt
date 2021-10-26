@@ -1,7 +1,7 @@
 package com.enigmacamp.myfulldagger.di.app
 
-import com.enigmacamp.simplesharedpref.data.repository.AuthenticationRepository
-import com.enigmacamp.simplesharedpref.data.repository.AuthenticationRepositoryImpl
+import com.enigmacamp.myfulldagger.data.repository.AuthenticationRepository
+import com.enigmacamp.myfulldagger.data.repository.AuthenticationRepositoryImpl
 import dagger.Binds
 import dagger.Module
 

@@ -4,11 +4,12 @@ import android.app.Application
 import androidx.room.Room
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import com.enigmacamp.myfulldagger.BuildConfig
 import com.enigmacamp.myfulldagger.data.SharedPref
+import com.enigmacamp.myfulldagger.data.api.AuthApi
+import com.enigmacamp.myfulldagger.data.api.interceptor.AuthTokenInterceptor
 import com.enigmacamp.myfulldagger.data.db.AppDatabase
 import com.enigmacamp.myfulldagger.data.db.CustomerDao
-import com.enigmacamp.mysimpleupload.data.api.AuthApi
-import com.enigmacamp.simplesharedpref.data.api.interceptor.AuthTokenInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -16,8 +17,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
+
 @Module
 class AppModule {
+    private val BASE_URL: String = BuildConfig.API_URL
+
     @Singleton
     @Provides
     fun provideOkHttpClient(authTokenIntercept: AuthTokenInterceptor): OkHttpClient {
@@ -30,7 +34,7 @@ class AppModule {
     @Provides
     fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:3008/enigma/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .client(okHttpClient)
             .build()
@@ -45,12 +49,11 @@ class AppModule {
     @Singleton
     @Provides
     fun provideRoomDatabase(app: Application): AppDatabase {
-        val appDatabase = Room.databaseBuilder(
+        return Room.databaseBuilder(
             app,
             AppDatabase::class.java,
             "enigma_database"
         ).build()
-        return appDatabase
     }
 
     @Provides
