@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import com.enigmacamp.myfulldagger.appComponent
 import com.enigmacamp.myfulldagger.databinding.ActivityMainBinding
 import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
+    @Inject
     lateinit var viewModel: MainActivityViewModel
     private lateinit var binding: ActivityMainBinding
 
@@ -32,7 +33,7 @@ class MainActivity : DaggerAppCompatActivity() {
     private fun initViewModel() {
         viewModel = ViewModelProvider(
             this,
-            ViewModelFactoryBase { appComponent.mainActivityViewModel }).get(MainActivityViewModel::class.java)
+            ViewModelFactoryBase { viewModel }).get(MainActivityViewModel::class.java)
         Log.d("ViewModel-Main", viewModel.toString())
     }
 

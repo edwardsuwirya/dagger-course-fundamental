@@ -1,24 +1,25 @@
 package com.enigmacamp.myfulldagger.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.enigmacamp.myfulldagger.R
-import com.enigmacamp.myfulldagger.appComponent
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
 
-class CustomerActivity : AppCompatActivity() {
-//    lateinit var viewModel: MainActivityViewModel
+class CustomerActivity : DaggerAppCompatActivity() {
+    @Inject
+    lateinit var viewModel: CustomerActivityViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_customer)
-//        initViewModel()
+        initViewModel()
     }
 
-//    private fun initViewModel() {
-//        viewModel = ViewModelProvider(
-//            this,
-//            ViewModelFactoryBase { appComponent.mainActivityViewModel }).get(MainActivityViewModel::class.java)
-//        Log.d("ViewModel-Customer", viewModel.toString())
-//    }
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelFactoryBase { viewModel }).get(CustomerActivityViewModel::class.java)
+        Log.d("ViewModel-Customer", viewModel.toString())
+    }
 }
